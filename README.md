@@ -16,61 +16,9 @@ A premium web-based crash game built with React, TypeScript, Supabase, and Tailw
 
 - **Frontend**: React 19, TypeScript, TailwindCSS
 - **State Management**: Zustand
-- **Backend**: Supabase (PostgreSQL, Auth, Storage)
+- **Backend**: Supabase
 - **Routing**: React Router DOM
 - **Build Tool**: Vite
-
-## 📦 Installation
-
-1. **Clone the repository**
-
-   ```bash
-   cd rocket-casino
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
-3. **Set up Supabase**
-
-   a. Create a new project at [supabase.com](https://supabase.com)
-
-   b. Copy your project URL and anon key
-
-   c. Create a `.env` file based on `.env.example`:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-   d. Update `.env` with your Supabase credentials:
-
-   ```
-   VITE_SUPABASE_URL=https://your-project.supabase.co
-   VITE_SUPABASE_ANON_KEY=your-anon-key
-   ```
-
-4. **Run the development server**
-
-   ```bash
-   npm run dev
-   ```
-
-5. **Open your browser**
-
-   Navigate to `http://localhost:5173`
-
-## 🎮 How to Play
-
-1. **Register/Login**: Create an account or log in
-2. **Place a Bet**: Enter your bet amount (or use quick bet buttons)
-3. **Optional**: Set an auto cash-out multiplier
-4. **Launch**: Click "Launch Rocket" to start the round
-5. **Cash Out**: Click "Cash Out" before the rocket crashes to win!
-6. **Claim Bonuses**: Get free $10 every minute from the bonus panel
 
 ## 📁 Project Structure
 
@@ -97,4 +45,11 @@ src/
 └── assets/             # Static assets
 ```
 
-Built with ❤️ using React, TypeScript, and Supabase
+## 🎮 How to Play
+
+1. **Register/Login**: Create an account or log in
+2. **Place a Bet**: Enter your bet amount (or use quick bet buttons)
+3. **Optional**: Set an auto cash-out multiplier
+4. **Launch**: Click "Launch Rocket" to start the round
+5. **Cash Out**: Click "Cash Out" before the rocket crashes to win!
+6. **Claim Bonuses**: Get free $10 every minute from the bonus panel
