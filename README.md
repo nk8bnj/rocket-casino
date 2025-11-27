@@ -1,6 +1,6 @@
 # 🚀 Rocket Casino - Crash Game
 
-[DEMO GAME](rocket-casino-one.vercel.app) 
+[DEMO GAME](https://rocket-casino-one.vercel.app) 
 
 ## ✨ Features
 
