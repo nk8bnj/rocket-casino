@@ -1,0 +1,165 @@
+.game-canvas {
+	min-height: 400px;
+	position: relative;
+	overflow: hidden;
+	background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+}
+
+.canvas-content {
+	height: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+
+.waiting-message {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	color: var(--text-secondary);
+}
+
+.rocket-icon {
+	animation: float 3s ease-in-out infinite;
+}
+
+.waiting-message p {
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.multiplier-display {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 72px;
+	font-weight: 800;
+	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	animation: pulse 1s ease-in-out infinite;
+	z-index: 1;
+}
+
+.rocket {
+	position: absolute;
+	bottom: 50px;
+	left: 50px;
+	transition: all 0.05s linear;
+	z-index: 2;
+	filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6));
+}
+
+.crashed-message {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	animation: fadeIn 0.5s ease;
+}
+
+.crashed-text {
+	font-size: 48px;
+	font-weight: 800;
+	color: var(--color-danger);
+	text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+	animation: shake 0.5s ease;
+}
+
+.crashed-multiplier {
+	font-size: 32px;
+	font-weight: 700;
+	color: var(--text-secondary);
+}
+
+.win-message {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	animation: fadeIn 0.5s ease;
+}
+
+.rocket-win-icon {
+	animation: celebration 0.6s ease;
+}
+
+.win-text {
+	font-size: 48px;
+	font-weight: 800;
+	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+	animation: celebration 0.6s ease;
+}
+
+.win-multiplier {
+	font-size: 32px;
+	font-weight: 700;
+	color: var(--color-success);
+}
+
+@keyframes celebration {
+	0% {
+		transform: scale(0.5) rotate(-10deg);
+		opacity: 0;
+	}
+
+	50% {
+		transform: scale(1.1) rotate(5deg);
+	}
+
+	100% {
+		transform: scale(1) rotate(0deg);
+		opacity: 1;
+	}
+}
+
+
+@keyframes shake {
+
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+
+	25% {
+		transform: translateX(-10px);
+	}
+
+	75% {
+		transform: translateX(10px);
+	}
+}
+
+@media (max-width: 768px) {
+	.canvas-content {
+		height: 300px;
+	}
+
+	.multiplier-display {
+		font-size: 48px;
+	}
+
+	.crashed-text {
+		font-size: 36px;
+	}
+
+	.crashed-multiplier {
+		font-size: 24px;
+	}
+
+	.win-text {
+		font-size: 36px;
+	}
+
+	.win-multiplier {
+		font-size: 24px;
+	}
+}
