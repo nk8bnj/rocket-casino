@@ -1,6 +1,6 @@
 # 🚀 Rocket Casino - Crash Game
 
-A premium web-based crash game built with React, TypeScript, Supabase, and TailwindCSS.
+[DEMO GAME](rocket-casino-one.vercel.app) 
 
 ## ✨ Features
 
