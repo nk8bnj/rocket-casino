@@ -9,6 +9,7 @@ import GameCanvas from '../../components/GameCanvas/GameCanvas';
 import BettingPanel from '../../components/BettingPanel/BettingPanel';
 import BonusPanel from '../../components/BonusPanel/BonusPanel';
 import Leaderboard from '../../components/Leaderboard/Leaderboard';
+import CasesGame from '../../components/CasesGame/CasesGame';
 import './Game.css';
 
 export default function Game() {
@@ -17,6 +18,7 @@ export default function Game() {
 	const { fetchBalance, updateBalance } = useWalletStore();
 	const { currentBet, cashOut } = useGameStore();
 	const { checkStreak } = useBonusStore();
+	const [activeTab, setActiveTab] = useState<'rocket' | 'cases'>('rocket');
 	const [showCashOutAnimation, setShowCashOutAnimation] = useState(false);
 	const [cashOutAmount, setCashOutAmount] = useState(0);
 
@@ -53,28 +55,46 @@ export default function Game() {
 				<div className="game-layout">
 					<div className="game-main">
 						<div className="game-header">
-							<div className="game-tab active">
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-									<path
-										d="M10 2L12 8L18 10L12 12L10 18L8 12L2 10L8 8L10 2Z"
-										fill="currentColor"
-									/>
-								</svg>
+							<button
+								type="button"
+								className={`game-tab ${activeTab === 'rocket' ? 'active' : ''}`}
+								onClick={() => setActiveTab('rocket')}
+							>
+								<span className="game-tab-icon" aria-hidden="true">
+									🚀
+								</span>
 								Rocket
-							</div>
+							</button>
+
+							<button
+								type="button"
+								className={`game-tab ${activeTab === 'cases' ? 'active' : ''}`}
+								onClick={() => setActiveTab('cases')}
+							>
+								<span className="game-tab-icon" aria-hidden="true">
+									📦
+								</span>
+								Cases
+							</button>
 						</div>
 
-						<GameCanvas />
+						{activeTab === 'rocket' ? (
+							<>
+								<GameCanvas />
 
-						{showCashOutAnimation && (
-							<div className="cash-out-animation">
-								<div className="cash-out-amount">
-									+${cashOutAmount.toFixed(2)}
-								</div>
-							</div>
+								{showCashOutAnimation && (
+									<div className="cash-out-animation">
+										<div className="cash-out-amount">
+											+${cashOutAmount.toFixed(2)}
+										</div>
+									</div>
+								)}
+
+								<BettingPanel onCashOut={handleCashOut} />
+							</>
+						) : (
+							<CasesGame />
 						)}
-
-						<BettingPanel onCashOut={handleCashOut} />
 					</div>
 
 					<div className="game-sidebar">

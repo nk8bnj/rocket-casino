@@ -50,6 +50,10 @@
 	transition: all 0.3s ease;
 }
 
+.game-tab-icon {
+	font-size: 20px;
+}
+
 .game-tab.active {
 	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
 	color: white;
