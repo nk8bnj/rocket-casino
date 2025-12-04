@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useAuthStore } from '../../store/authStore';
 import { useWalletStore } from '../../store/walletStore';
+import { CloseIcon, UserIcon } from '../icons/Icons';
 import './ProfileSettingsModal.css';
 
 interface ProfileSettingsModalProps {
@@ -50,9 +51,7 @@ export default function ProfileSettingsModal({ isOpen, onClose }: ProfileSetting
 		<div className="modal-overlay" onClick={onClose}>
 			<div className="modal-content" onClick={e => e.stopPropagation()}>
 				<button className="close-btn" onClick={onClose}>
-					<svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-						<path d="M15 5L5 15M5 5L15 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-					</svg>
+					<CloseIcon />
 				</button>
 
 				<div className="modal-header">
@@ -62,10 +61,7 @@ export default function ProfileSettingsModal({ isOpen, onClose }: ProfileSetting
 
 				<div className="form-group">
 					<label className="form-label">
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-							<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-							<circle cx="12" cy="7" r="4"></circle>
-						</svg>
+						<UserIcon />
 						Username
 					</label>
 					<input

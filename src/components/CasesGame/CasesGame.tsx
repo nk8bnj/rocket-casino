@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
 import { useAuthStore } from "../../store/authStore";
 import { useWalletStore } from "../../store/walletStore";
 import type { CaseItem, CaseType, Rarity } from "../../types/cases";
 import { CASES, RARITY_CONFIG } from "../../data/cases";
+import { useCaseGameState } from "../../hooks/useCaseGameState";
 import "./CasesGame.css";
 
 const CARD_WIDTH = 140;
@@ -35,33 +35,24 @@ export default function CasesGame() {
   const { user } = useAuthStore();
   const { balance, updateBalance } = useWalletStore();
 
-  const [selectedCaseId, setSelectedCaseId] = useState<CaseType["id"]>("animal");
-  const [isOpening, setIsOpening] = useState(false);
-  const [isSpinning, setIsSpinning] = useState(false);
-  const [spinItems, setSpinItems] = useState<CaseItem[]>([]);
-  const [translateX, setTranslateX] = useState(0);
-  const [resultItem, setResultItem] = useState<CaseItem | null>(null);
-  const [winLossNotification, setWinLossNotification] = useState<{
-    amount: number;
-    visible: boolean;
-  } | null>(null);
-
-  const showStrip = isOpening || isSpinning || !!resultItem;
-  const showIdleOverlay = !showStrip;
-
-  const selectedCase = useMemo(
-    () => CASES.find((c) => c.id === selectedCaseId) ?? CASES[0],
-    [selectedCaseId],
-  );
-
-  const rarityEntries = useMemo(
-    () =>
-      Object.entries(RARITY_CONFIG) as [
-        Rarity,
-        (typeof RARITY_CONFIG)[Rarity],
-      ][],
-    [],
-  );
+  const {
+    isOpening,
+    isSpinning,
+    spinItems,
+    translateX,
+    winLossNotification,
+    setSelectedCaseId,
+    setIsOpening,
+    setIsSpinning,
+    setSpinItems,
+    setTranslateX,
+    setResultItem,
+    setWinLossNotification,
+    showStrip,
+    showIdleOverlay,
+    selectedCase,
+    rarityEntries,
+  } = useCaseGameState();
 
   const handleSelectCase = (id: CaseType["id"]) => {
     if (isOpening) return;
@@ -136,7 +127,7 @@ export default function CasesGame() {
         </div>
 
         <div className="cases-list">
-          {CASES.map((caseType) => {
+          {CASES.map((caseType: CaseType) => {
             const isActive = caseType.id === selectedCase.id;
             return (
               <button

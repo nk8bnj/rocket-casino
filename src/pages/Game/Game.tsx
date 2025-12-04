@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 import { useWalletStore } from '../../store/walletStore';
 import { useGameStore } from '../../store/gameStore';
+import { GameTab } from '../../types';
 import { useBonusStore } from '../../store/bonusStore';
 import Header from '../../components/Header/Header';
 import GameCanvas from '../../components/GameCanvas/GameCanvas';
@@ -10,6 +11,7 @@ import BettingPanel from '../../components/BettingPanel/BettingPanel';
 import BonusPanel from '../../components/BonusPanel/BonusPanel';
 import Leaderboard from '../../components/Leaderboard/Leaderboard';
 import CasesGame from '../../components/CasesGame/CasesGame';
+import GameTabButton from '../../components/ui/GameTabButton';
 import './Game.css';
 
 export default function Game() {
@@ -18,9 +20,22 @@ export default function Game() {
 	const { fetchBalance, updateBalance } = useWalletStore();
 	const { currentBet, cashOut } = useGameStore();
 	const { checkStreak } = useBonusStore();
-	const [activeTab, setActiveTab] = useState<'rocket' | 'cases'>('rocket');
+	const [activeTab, setActiveTab] = useState<GameTab>(GameTab.Rocket);
 	const [showCashOutAnimation, setShowCashOutAnimation] = useState(false);
 	const [cashOutAmount, setCashOutAmount] = useState(0);
+
+	const tabs = [
+		{
+			id: GameTab.Rocket as GameTab,
+			label: 'Rocket',
+			icon: '🚀',
+		},
+		{
+			id: GameTab.Cases as GameTab,
+			label: 'Cases',
+			icon: '📦',
+		},
+	] as const;
 
 	useEffect(() => {
 		if (!user) {
@@ -55,30 +70,17 @@ export default function Game() {
 				<div className="game-layout">
 					<div className="game-main">
 						<div className="game-header">
-							<button
-								type="button"
-								className={`game-tab ${activeTab === 'rocket' ? 'active' : ''}`}
-								onClick={() => setActiveTab('rocket')}
-							>
-								<span className="game-tab-icon" aria-hidden="true">
-									🚀
-								</span>
-								Rocket
-							</button>
-
-							<button
-								type="button"
-								className={`game-tab ${activeTab === 'cases' ? 'active' : ''}`}
-								onClick={() => setActiveTab('cases')}
-							>
-								<span className="game-tab-icon" aria-hidden="true">
-									📦
-								</span>
-								Cases
-							</button>
+							{tabs.map((tab) => (
+								<GameTabButton
+									key={tab.id}
+									tab={tab}
+									isActive={activeTab === tab.id}
+									onClick={() => setActiveTab(tab.id)}
+								/>
+							))}
 						</div>
 
-						{activeTab === 'rocket' ? (
+						{activeTab === GameTab.Rocket ? (
 							<>
 								<GameCanvas />
 

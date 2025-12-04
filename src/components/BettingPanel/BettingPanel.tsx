@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuthStore } from '../../store/authStore';
 import { useWalletStore } from '../../store/walletStore';
 import { useGameStore } from '../../store/gameStore';
+import { GameStatus } from '../../types';
 import './BettingPanel.css';
 
 interface BettingPanelProps {
@@ -54,8 +55,8 @@ export default function BettingPanel({ onCashOut }: BettingPanelProps) {
 		setBetAmount(amount.toString());
 	};
 
-	const canPlaceBet = status === 'waiting' && !currentBet;
-	const canCashOut = status === 'running' && currentBet && !hasCashedOut;
+	const canPlaceBet = status === GameStatus.Waiting && !currentBet;
+	const canCashOut = status === GameStatus.Running && currentBet && !hasCashedOut;
 
 	return (
 		<div className="betting-panel glass-card">
@@ -117,13 +118,13 @@ export default function BettingPanel({ onCashOut }: BettingPanelProps) {
 					</button>
 				)}
 
-				{status === 'won' && (
+				{status === GameStatus.Won && (
 					<button className="btn action-btn" disabled style={{ opacity: 0.6 }}>
 						Wait...
 					</button>
 				)}
 
-				{status === 'crashed' && (
+				{status === GameStatus.Crashed && (
 					<button className="btn action-btn" disabled style={{ opacity: 0.6 }}>
 						Round Ended
 					</button>

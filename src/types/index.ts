@@ -23,12 +23,29 @@ export interface Bet {
   created_at: string;
 }
 
+export const GameStatus = {
+  Waiting: "waiting",
+  Running: "running",
+  Crashed: "crashed",
+  Won: "won",
+} as const;
+
+export type GameStatus = (typeof GameStatus)[keyof typeof GameStatus];
+
+export const RoundStatus = {
+  Waiting: "waiting",
+  Running: "running",
+  Crashed: "crashed",
+} as const;
+
+export type RoundStatus = (typeof RoundStatus)[keyof typeof RoundStatus];
+
 export interface Round {
   id: string;
   crash_point: number;
   started_at: string;
   ended_at?: string;
-  status: "waiting" | "running" | "crashed";
+  status: RoundStatus;
 }
 
 export interface Bonus {
@@ -40,7 +57,7 @@ export interface Bonus {
 }
 
 export interface GameState {
-  status: "waiting" | "running" | "crashed" | "won";
+  status: GameStatus;
   multiplier: number;
   crashPoint: number;
   currentBet: number | null;
@@ -54,3 +71,10 @@ export interface UserStats {
   highestMultiplier: number;
   streak: number;
 }
+
+export const GameTab = {
+  Rocket: "rocket",
+  Cases: "cases",
+} as const;
+
+export type GameTab = (typeof GameTab)[keyof typeof GameTab];

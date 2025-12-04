@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { GameState } from "../types";
+import { GameStatus } from "../types";
 
 interface GameStore extends GameState {
   startRound: () => void;
@@ -14,7 +15,7 @@ const MULTIPLIER_INCREMENT = 0.01;
 const UPDATE_INTERVAL = 50;
 
 export const useGameStore = create<GameStore>((set, get) => ({
-  status: "waiting",
+  status: GameStatus.Waiting,
   multiplier: 1.0,
   crashPoint: 0,
   currentBet: null,
@@ -25,7 +26,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const crashPoint = Math.random() * 9 + 1.01;
 
     set({
-      status: "running",
+      status: GameStatus.Running,
       multiplier: 1.0,
       crashPoint: parseFloat(crashPoint.toFixed(2)),
       hasCashedOut: false,
@@ -34,7 +35,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const interval = setInterval(() => {
       const state = get();
 
-      if (state.status !== "running") {
+      if (state.status !== GameStatus.Running) {
         clearInterval(interval);
         return;
       }
@@ -66,7 +67,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
 
   crashRound: () => {
-    set({ status: "crashed" });
+    set({ status: GameStatus.Crashed });
 
     setTimeout(() => {
       get().reset();
@@ -91,7 +92,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
     set({
       hasCashedOut: true,
-      status: "won",
+      status: GameStatus.Won,
     });
 
     setTimeout(() => {
@@ -103,7 +104,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   reset: () => {
     set({
-      status: "waiting",
+      status: GameStatus.Waiting,
       multiplier: 1.0,
       crashPoint: 0,
       currentBet: null,

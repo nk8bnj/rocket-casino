@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuthStore } from '../../store/authStore';
 import { useWalletStore } from '../../store/walletStore';
 import { useBonusStore } from '../../store/bonusStore';
+import { BonusMainIcon, TimerIcon, StreakIcon } from '../icons/Icons';
 import './BonusPanel.css';
 
 export default function BonusPanel() {
@@ -44,18 +45,7 @@ export default function BonusPanel() {
 		<div className="bonus-panel glass-card">
 			<div className="bonus-header">
 				<div className="bonus-icon">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-						<path
-							d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10L12 2Z"
-							fill="url(#bonusGradient)"
-						/>
-						<defs>
-							<linearGradient id="bonusGradient" x1="2" y1="2" x2="22" y2="22">
-								<stop offset="0%" stopColor="#10b981" />
-								<stop offset="100%" stopColor="#059669" />
-							</linearGradient>
-						</defs>
-					</svg>
+					<BonusMainIcon />
 				</div>
 				<div>
 					<h3>Claim Bonus</h3>
@@ -68,10 +58,7 @@ export default function BonusPanel() {
 					<div className="bonus-info-item">
 						<span className="bonus-label">Next claim:</span>
 						<span className="bonus-value timer">
-							<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-								<circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="2" />
-								<path d="M8 4V8L11 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-							</svg>
+							<TimerIcon />
 							{canClaim() ? 'Ready!' : formatTime(timeLeft)}
 						</span>
 					</div>
@@ -91,12 +78,7 @@ export default function BonusPanel() {
 
 				{streak > 0 && (
 					<div className="streak-display">
-						<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-							<path
-								d="M8 2L9 6L13 7L9 8L8 12L7 8L3 7L7 6L8 2Z"
-								fill="currentColor"
-							/>
-						</svg>
+						<StreakIcon />
 						<span>Streak: {streak} days</span>
 					</div>
 				)}
