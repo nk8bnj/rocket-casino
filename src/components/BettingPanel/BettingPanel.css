@@ -1,0 +1,87 @@
+.betting-panel {
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.betting-header h3 {
+	font-size: 18px;
+	font-weight: 600;
+	color: var(--text-primary);
+}
+
+.betting-content {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.bet-input-group {
+	position: relative;
+}
+
+.bet-input {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.quick-bets {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 8px;
+}
+
+.quick-bet-btn {
+	padding: 10px;
+	background: rgba(30, 41, 59, 0.6);
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	color: var(--text-secondary);
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.quick-bet-btn:hover:not(:disabled) {
+	background: rgba(51, 65, 85, 0.8);
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+.quick-bet-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.quick-bet-btn.selected {
+	background: rgba(51, 65, 85, 0.8);
+	border-color: var(--color-primary);
+	color: var(--color-primary);
+}
+
+.auto-cashout-group {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.auto-cashout-group label {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--text-secondary);
+}
+
+.action-btn {
+	width: 100%;
+	padding: 16px;
+	font-size: 18px;
+	font-weight: 700;
+	margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+	.quick-bets {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}

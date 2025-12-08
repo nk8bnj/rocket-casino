@@ -1,0 +1,129 @@
+.leaderboard {
+	background: rgba(30, 41, 59, 0.6);
+	backdrop-filter: blur(10px);
+	border: 1px solid var(--border-color);
+	border-radius: 16px;
+	padding: 20px;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	max-height: 400px;
+	overflow: hidden;
+}
+
+.leaderboard-header {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding-bottom: 8px;
+}
+
+.leaderboard-icon {
+	width: 56px;
+	height: 56px;
+	background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+	border-radius: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #60a5fa;
+	flex-shrink: 0;
+}
+
+.leaderboard-icon svg {
+	width: 28px;
+	height: 28px;
+}
+
+.leaderboard-title {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.leaderboard-title h3 {
+	margin: 0;
+	font-size: 1.3rem;
+	font-weight: 700;
+	color: white;
+	line-height: 1.2;
+}
+
+.leaderboard-title .subtitle {
+	font-size: 1rem;
+	color: #94a3b8;
+	font-weight: 500;
+}
+
+.leaderboard-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	overflow-y: auto;
+	padding-right: 4px;
+}
+
+.leaderboard-list::-webkit-scrollbar {
+	width: 4px;
+}
+
+.leaderboard-list::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 2px;
+}
+
+.leaderboard-list::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 2px;
+}
+
+.leaderboard-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+	background: rgba(255, 255, 255, 0.03);
+	border-radius: 8px;
+	transition: all 0.2s ease;
+}
+
+.leaderboard-item:hover {
+	background: rgba(255, 255, 255, 0.08);
+	transform: translateX(2px);
+}
+
+.leaderboard-item.current-user {
+	background: linear-gradient(90deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+	border: 1px solid rgba(129, 140, 248, 0.3);
+}
+
+.rank {
+	font-weight: 700;
+	color: var(--text-secondary);
+	width: 30px;
+	font-size: 0.9rem;
+}
+
+.user-info {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.username {
+	font-weight: 500;
+	font-size: 0.9rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 120px;
+}
+
+.balance {
+	font-family: 'Monaco', 'Consolas', monospace;
+	font-weight: 600;
+	color: var(--color-success);
+	font-size: 0.9rem;
+}
