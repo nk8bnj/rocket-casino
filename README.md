@@ -44,16 +44,3 @@ src/
 │   └── index.ts
 └── assets/             # Static assets
 ```
-
-<<<<<<< HEAD
-Built with ❤️ using React, TypeScript, and Supabase
-=======
-## 🎮 How to Play
-
-1. **Register/Login**: Create an account or log in
-2. **Place a Bet**: Enter your bet amount (or use quick bet buttons)
-3. **Optional**: Set an auto cash-out multiplier
-4. **Launch**: Click "Launch Rocket" to start the round
-5. **Cash Out**: Click "Cash Out" before the rocket crashes to win!
-6. **Claim Bonuses**: Get free $10 every minute from the bonus panel
->>>>>>> main
