@@ -75,6 +75,7 @@ export interface UserStats {
 export const GameTab = {
   Rocket: "rocket",
   Cases: "cases",
+  Mines: "mines",
 } as const;
 
 export type GameTab = (typeof GameTab)[keyof typeof GameTab];
