@@ -33,7 +33,6 @@ export function useCaseGameState(initialCaseId: CaseType["id"] = "animal") {
   );
 
   return {
-    // state
     selectedCaseId,
     isOpening,
     isSpinning,
@@ -41,7 +40,6 @@ export function useCaseGameState(initialCaseId: CaseType["id"] = "animal") {
     translateX,
     resultItem,
     winLossNotification,
-    // setters
     setSelectedCaseId,
     setIsOpening,
     setIsSpinning,
@@ -49,7 +47,6 @@ export function useCaseGameState(initialCaseId: CaseType["id"] = "animal") {
     setTranslateX,
     setResultItem,
     setWinLossNotification,
-    // derived
     showStrip,
     showIdleOverlay,
     selectedCase,

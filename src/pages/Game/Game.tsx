@@ -11,6 +11,8 @@ import BettingPanel from '../../components/BettingPanel/BettingPanel';
 import BonusPanel from '../../components/BonusPanel/BonusPanel';
 import Leaderboard from '../../components/Leaderboard/Leaderboard';
 import CasesGame from '../../components/CasesGame/CasesGame';
+import MinesGame from '../../components/MinesGame/MinesGame';
+import PlinkoGame from '../../components/PlinkoGame/PlinkoGame';
 import GameTabButton from '../../components/ui/GameTabButton';
 import './Game.css';
 
@@ -34,6 +36,16 @@ export default function Game() {
 			id: GameTab.Cases as GameTab,
 			label: 'Cases',
 			icon: '📦',
+		},
+		{
+			id: GameTab.Mines as GameTab,
+			label: 'Mines',
+			icon: '💣',
+		},
+		{
+			id: GameTab.Plinko as GameTab,
+			label: 'Plinko',
+			icon: '🎯',
 		},
 	] as const;
 
@@ -94,9 +106,13 @@ export default function Game() {
 
 								<BettingPanel onCashOut={handleCashOut} />
 							</>
-						) : (
+						) : activeTab === GameTab.Cases ? (
 							<CasesGame />
-						)}
+						) : activeTab === GameTab.Mines ? (
+							<MinesGame />
+						) : activeTab === GameTab.Plinko ? (
+							<PlinkoGame />
+						) : null}
 					</div>
 
 					<div className="game-sidebar">

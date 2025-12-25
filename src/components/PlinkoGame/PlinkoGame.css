@@ -1,0 +1,539 @@
+.plinko-game {
+  width: 100%;
+  min-height: 600px;
+  padding: 0;
+}
+
+.plinko-game__container {
+  display: flex;
+  gap: 1.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.plinko-game__controls {
+  order: 1;
+}
+
+.plinko-game__board {
+  order: 2;
+  width: 100%;
+}
+
+.plinko-game__history {
+  order: 3;
+}
+
+.plinko-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.plinko-controls__title {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.plinko-controls__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.plinko-controls__section--risk {
+  background: rgba(51, 65, 85, 0.5);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.plinko-controls__section--balls {
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  padding: 1rem;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.plinko-controls__section--lines {
+  background: rgba(51, 65, 85, 0.5);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.plinko-controls__label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.plinko-controls__risk-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  background: transparent;
+}
+
+.plinko-controls__risk-arrow {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1.125rem;
+  cursor: pointer;
+  padding: 0.5rem 0.875rem;
+  transition: all 0.18s ease;
+  min-width: 44px;
+}
+
+.plinko-controls__risk-arrow:hover:not(:disabled) {
+  background: rgba(51, 65, 85, 0.8);
+  border-color: var(--border-color-hover);
+}
+
+.plinko-controls__risk-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.plinko-controls__risk-value {
+  flex: 1;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.plinko-controls__lines-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.plinko-controls__lines-button {
+  padding: 0.75rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.plinko-controls__lines-button:hover:not(:disabled) {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: var(--border-color-hover);
+  transform: translateY(-1px);
+}
+
+.plinko-controls__lines-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.plinko-controls__lines-button--active {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.plinko-controls__balls-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.plinko-controls__balls-button {
+  padding: 0.875rem 0.75rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.plinko-controls__balls-button:hover:not(:disabled) {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: var(--border-color-hover);
+  transform: translateY(-1px);
+}
+
+.plinko-controls__balls-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.plinko-controls__balls-button--active {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.plinko-controls__balls-count {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.plinko-controls__balls-price {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.plinko-controls__balls-button--active .plinko-controls__balls-price {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.plinko-controls__drop-button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.plinko-controls__drop-button--dropping {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.plinko-controls__drop-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.plinko-controls__warning {
+  text-align: center;
+  color: var(--color-danger);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.plinko-board {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1rem;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.plinko-board__container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 700px;
+}
+
+.plinko-board__svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.plinko-board__peg {
+  transition: all 0.18s ease;
+}
+
+.plinko-board__peg:hover {
+  transform: scale(1.2);
+}
+
+.plinko-board__slot {
+  transition: all 0.3s ease;
+}
+
+.plinko-board__slot--highlighted {
+  animation: slotWin 0.6s ease-in-out;
+}
+
+@keyframes slotWin {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.9;
+  }
+}
+
+.plinko-board__slot-text {
+  user-select: none;
+  pointer-events: none;
+}
+
+.plinko-board__balls-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.plinko-ball {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6);
+  box-shadow:
+    0 0 10px rgba(59, 130, 246, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.2),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.3);
+  will-change: transform;
+  z-index: 10;
+  transition: box-shadow 0.1s ease;
+}
+
+.plinko-board__placeholder {
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+}
+
+.plinko-history {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 800px;
+  margin-top: 1.5rem;
+}
+
+.plinko-history__title {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.plinko-history__empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.plinko-history__empty-hint {
+  font-size: 0.8125rem;
+  opacity: 0.7;
+}
+
+.plinko-history__list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-right: 0.25rem;
+}
+
+.plinko-history__list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.plinko-history__list::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 3px;
+}
+
+.plinko-history__list::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+.plinko-history__list::-webkit-scrollbar-thumb:hover {
+  background: var(--border-color-hover);
+}
+
+.plinko-history__entry {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  animation: historyEntryFadeIn 0.3s ease;
+}
+
+@keyframes historyEntryFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.plinko-history__entry-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.plinko-history__entry-emoji {
+  font-size: 1rem;
+}
+
+.plinko-history__entry-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.plinko-history__entry-details {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8125rem;
+}
+
+.plinko-history__entry-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.plinko-history__entry-label {
+  color: var(--text-secondary);
+}
+
+.plinko-history__entry-value {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.plinko-history__entry-profit {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.plinko-history__entry-bet {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1023px) {
+  .plinko-game__container {
+    grid-template-columns: 1fr 350px;
+    grid-template-rows: auto 1fr;
+  }
+
+  .plinko-game__controls {
+    grid-column: 1 / -1;
+    order: 1;
+  }
+
+  .plinko-game__board {
+    order: 2;
+  }
+
+  .plinko-game__history {
+    order: 3;
+  }
+}
+
+@media (max-width: 767px) {
+  .plinko-game {
+    padding: 1rem;
+  }
+
+  .plinko-game__container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    flex-direction: column;
+  }
+
+  .plinko-game__controls {
+    order: 1;
+  }
+
+  .plinko-game__board {
+    order: 2;
+  }
+
+  .plinko-game__history {
+    order: 3;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .plinko-board {
+    padding: 1.5rem;
+    min-height: 400px;
+  }
+
+  .plinko-controls__lines-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .plinko-controls__balls-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .plinko-controls__lines-grid {
+    gap: 0.375rem;
+  }
+
+  .plinko-controls__balls-grid {
+    gap: 0.375rem;
+  }
+
+  .plinko-controls__lines-button {
+    padding: 0.625rem;
+    font-size: 0.875rem;
+  }
+
+  .plinko-controls__balls-button {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .plinko-controls__balls-count {
+    font-size: 1.125rem;
+  }
+
+  .plinko-controls__balls-price {
+    font-size: 0.75rem;
+  }
+}

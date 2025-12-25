@@ -35,7 +35,9 @@ export default function Header() {
 				<div className="header-right">
 					<div className="balance-display">
 						<BalanceIcon />
-						<span className="balance-amount">${balance.toFixed(2)}</span>
+						<span className="balance-amount">
+							${Number(balance ?? 0).toFixed(2)}
+						</span>
 					</div>
 
 					<button
