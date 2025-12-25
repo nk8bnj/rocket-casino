@@ -8,8 +8,8 @@ export type Rarity =
 
 export interface RarityConfig {
   label: string;
-  chance: number; // percentage (0-100)
-  value: number; // fixed dollar value of the card
+  chance: number;
+  value: number;
 }
 
 

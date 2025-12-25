@@ -76,6 +76,7 @@ export const GameTab = {
   Rocket: "rocket",
   Cases: "cases",
   Mines: "mines",
+  Plinko: "plinko",
 } as const;
 
 export type GameTab = (typeof GameTab)[keyof typeof GameTab];

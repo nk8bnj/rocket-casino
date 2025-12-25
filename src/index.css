@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
 :root {
-  /* Colors */
   --color-primary: #3b82f6;
   --color-primary-dark: #2563eb;
   --color-secondary: #8b5cf6;
@@ -9,21 +8,17 @@
   --color-danger: #ef4444;
   --color-warning: #f59e0b;
 
-  /* Background */
   --bg-gradient-start: #0f172a;
   --bg-gradient-mid: #1e293b;
   --bg-gradient-end: #334155;
 
-  /* Card backgrounds */
   --card-bg: rgba(30, 41, 59, 0.8);
   --card-bg-hover: rgba(51, 65, 85, 0.9);
 
-  /* Text */
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;
 
-  /* Borders */
   --border-color: rgba(148, 163, 184, 0.2);
   --border-color-hover: rgba(148, 163, 184, 0.4);
 }
@@ -62,7 +57,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Animated gradient background */
 body::before {
   content: "";
   position: fixed;
@@ -106,7 +100,6 @@ body::before {
   z-index: 1;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -124,7 +117,6 @@ body::before {
   background: var(--card-bg-hover);
 }
 
-/* Utility classes */
 .gradient-text {
   background: linear-gradient(
     135deg,
@@ -142,6 +134,7 @@ body::before {
   border: 1px solid var(--border-color);
   border-radius: 16px;
   transition: all 0.3s ease;
+  padding: 16px;
 }
 
 .glass-card:hover {
@@ -238,7 +231,6 @@ body::before {
   color: var(--text-muted);
 }
 
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -277,7 +269,6 @@ body::before {
   animation: slideIn 0.5s ease forwards;
 }
 
-/* Loading spinner */
 .spinner {
   width: 40px;
   height: 40px;

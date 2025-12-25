@@ -12,6 +12,7 @@ import BonusPanel from '../../components/BonusPanel/BonusPanel';
 import Leaderboard from '../../components/Leaderboard/Leaderboard';
 import CasesGame from '../../components/CasesGame/CasesGame';
 import MinesGame from '../../components/MinesGame/MinesGame';
+import PlinkoGame from '../../components/PlinkoGame/PlinkoGame';
 import GameTabButton from '../../components/ui/GameTabButton';
 import './Game.css';
 
@@ -40,6 +41,11 @@ export default function Game() {
 			id: GameTab.Mines as GameTab,
 			label: 'Mines',
 			icon: '💣',
+		},
+		{
+			id: GameTab.Plinko as GameTab,
+			label: 'Plinko',
+			icon: '🎯',
 		},
 	] as const;
 
@@ -104,6 +110,8 @@ export default function Game() {
 							<CasesGame />
 						) : activeTab === GameTab.Mines ? (
 							<MinesGame />
+						) : activeTab === GameTab.Plinko ? (
+							<PlinkoGame />
 						) : null}
 					</div>
 

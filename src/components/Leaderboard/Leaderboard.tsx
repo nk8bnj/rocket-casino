@@ -86,7 +86,9 @@ export default function Leaderboard() {
 						<div className="user-info">
 							<span className="username">{entry.username || 'Anonymous'}</span>
 						</div>
-						<span className="balance">${entry.balance.toFixed(2)}</span>
+						<span className="balance">
+							${Number(entry.balance ?? 0).toFixed(2)}
+						</span>
 					</div>
 				))}
 			</div>
