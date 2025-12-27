@@ -74,11 +74,15 @@ export function getSlotPositions(linesCount: number): { x: number; index: number
   const slotCount = linesCount + 1;
   const slots: { x: number; index: number }[] = [];
 
-  for (let i = 0; i < slotCount; i++) {
-    const totalWidth = (slotCount - 1) * SLOT_SPACING;
-    const xOffset = -totalWidth / 2;
-    const x = xOffset + i * SLOT_SPACING;
+  // Calculate bottom row peg width to match the pyramid span
+  // Bottom row has (linesCount - 1) + 3 = linesCount + 2 pegs
+  const bottomRowPegs = linesCount + 2;
+  const totalWidth = (bottomRowPegs - 1) * PEG_SPACING_X;
+  const xOffset = -totalWidth / 2;
 
+  for (let i = 0; i < slotCount; i++) {
+    // Position slots evenly across the full pyramid width
+    const x = xOffset + (i * totalWidth) / (slotCount - 1);
     slots.push({ x, index: i });
   }
 
