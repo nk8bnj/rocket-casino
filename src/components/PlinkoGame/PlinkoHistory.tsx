@@ -6,11 +6,13 @@ import type { HistoryEntry } from "../../types/plinko";
 export default function PlinkoHistory() {
   const { getHistory } = usePlinkoStore();
   const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [currentTime, setCurrentTime] = useState(() => Date.now());
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const loadHistory = () => {
       setHistory(getHistory());
+      setCurrentTime(Date.now());
     };
 
     loadHistory();
@@ -27,8 +29,7 @@ export default function PlinkoHistory() {
   }, [history.length]);
 
   const formatTimestamp = (timestamp: number): string => {
-    const now = Date.now();
-    const diff = now - timestamp;
+    const diff = currentTime - timestamp;
 
     const seconds = Math.floor(diff / 1000);
     const minutes = Math.floor(seconds / 60);

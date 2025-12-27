@@ -36,7 +36,7 @@ export default function PlinkoBoard() {
 
   // Top row (row 0): outermost pegs at ±35
   const topY = -10;
-  const topX = 35 + borderOffsetX;
+  const topX = PEG_SPACING_X + borderOffsetX;
 
   // Bottom row: outermost pegs at ±(linesCount + 1) * 17.5
   const bottomY = (linesCount - 1) * PEG_SPACING_Y + 10;

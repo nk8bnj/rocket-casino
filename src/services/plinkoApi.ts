@@ -66,7 +66,7 @@ export async function completePlinkoGame(gameId: string): Promise<{
   };
 }
 
-export async function getPlinkoHistory(userId: string, limit: number = 20): Promise<any[]> {
+export async function getPlinkoHistory(userId: string, limit: number = 20): Promise<never[]> {
   await delay(50);
 
   console.log(`[Mock API] History requested for user ${userId}, limit ${limit}`);
@@ -74,9 +74,7 @@ export async function getPlinkoHistory(userId: string, limit: number = 20): Prom
 }
 
 export async function verifyPlinkoGame(
-  gameId: string,
-  _serverSeed: string,
-  _clientSeed: string
+  gameId: string
 ): Promise<{
   verified: boolean;
   paths: number[][];
