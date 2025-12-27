@@ -18,7 +18,7 @@ interface PlinkoStore extends PlinkoGameState {
 
   updateSettings: (settings: Partial<Pick<PlinkoGameState, "riskLevel" | "linesCount" | "ballsCount">>) => void;
   startDrop: (userId: string, updateBalance: (userId: string, amount: number) => Promise<void>) => Promise<void>;
-  completeBall: (ballId: string) => Promise<void>;
+  completeBall: (ballId: string, actualSlotIndex?: number) => Promise<void>;
   addToHistory: (entry: HistoryEntry) => void;
   getHistory: () => HistoryEntry[];
   reset: () => void;
@@ -136,7 +136,7 @@ export const usePlinkoStore = create<PlinkoStore>((set, get) => ({
     }
   },
 
-  completeBall: async (ballId) => {
+  completeBall: async (ballId, actualSlotIndex) => {
     const state = get();
 
     const ballIndex = state.activeBalls.findIndex((b) => b.id === ballId);
@@ -147,14 +147,24 @@ export const usePlinkoStore = create<PlinkoStore>((set, get) => ({
 
     const ball = state.activeBalls[ballIndex];
 
-    const profit = BET_PER_BALL * ball.multiplier;
+    // Use the actual landed slot index if provided, otherwise use the predetermined one
+    const finalSlotIndex = actualSlotIndex !== undefined ? actualSlotIndex : ball.slotIndex;
+
+    // Calculate the correct multiplier based on where the ball actually landed
+    let finalMultiplier = ball.multiplier;
+    if (actualSlotIndex !== undefined) {
+      const { getMultiplier } = await import("../utils/plinkoMultiplier");
+      finalMultiplier = getMultiplier(state.riskLevel, state.linesCount, actualSlotIndex);
+    }
+
+    const profit = BET_PER_BALL * finalMultiplier;
 
     const completedBall: typeof state.completedBalls[0] = {
       id: ball.id,
       betAmount: BET_PER_BALL,
-      multiplier: ball.multiplier,
+      multiplier: finalMultiplier,
       profit,
-      slotIndex: ball.slotIndex,
+      slotIndex: finalSlotIndex,
     };
 
     const newActiveBalls = state.activeBalls.filter((_, i) => i !== ballIndex);
