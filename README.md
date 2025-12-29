@@ -1,6 +1,6 @@
 # 🚀 Rocket Casino - Crash Game
 
-[DEMO GAME](https://rocket-casino-iota.vercel.app/) 
+[DEMO GAME](https://rocket-casino-dusky.vercel.app) 
 
 ## ✨ Features
 
