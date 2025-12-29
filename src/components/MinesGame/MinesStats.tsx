@@ -1,5 +1,8 @@
 import { useMinesStore } from "../../store/minesStore";
 import { calculateMinesMultiplier } from "../../utils/minesMultiplier";
+import { MinesGameStatus } from "../../types/mines";
+import { formatCurrency } from "../../utils/formatCurrency";
+import MinesStatsRows from "./MinesStatsRows";
 
 export default function MinesStats() {
   const { status, minesCount, revealedTiles, potentialProfit, betAmount } =
@@ -16,42 +19,25 @@ export default function MinesStats() {
       <div className="mines-stats__row">
         <span className="mines-stats__label">Bet Amount:</span>
         <span className="mines-stats__value mines-stats__value--bet">
-          ${betAmount.toFixed(2)}
+          {formatCurrency(betAmount)}
         </span>
       </div>
 
-      <div className="mines-stats__row">
-        <span className="mines-stats__label">Current Value:</span>
-        <span className="mines-stats__value mines-stats__value--current">
-          ${potentialProfit.toFixed(2)}
-        </span>
-      </div>
+      <MinesStatsRows
+        potentialProfit={potentialProfit}
+        nextMultiplier={nextMultiplier}
+        safeTilesLeft={safeTilesLeft}
+      />
 
-      <div className="mines-stats__row">
-        <span className="mines-stats__label">Next Tile:</span>
-        <span className="mines-stats__value mines-stats__value--next">
-          {nextMultiplier.toFixed(2)}x
-        </span>
-      </div>
-
-      <div className="mines-stats__separator"></div>
-
-      <div className="mines-stats__row">
-        <span className="mines-stats__label">Safe Tiles Left:</span>
-        <span className="mines-stats__value mines-stats__value--safe">
-          {safeTilesLeft}
-        </span>
-      </div>
-
-      {status === "won" && (
+      {status === MinesGameStatus.Won && (
         <div className="mines-stats__result mines-stats__result--won">
-          🎉 You Won ${potentialProfit.toFixed(2)}!
+          🎉 You Won {formatCurrency(potentialProfit)}!
         </div>
       )}
 
-      {status === "lost" && (
+      {status === MinesGameStatus.Lost && (
         <div className="mines-stats__result mines-stats__result--lost">
-          💥 You Lost ${betAmount.toFixed(2)}
+          💥 You Lost {formatCurrency(betAmount)}
         </div>
       )}
     </div>

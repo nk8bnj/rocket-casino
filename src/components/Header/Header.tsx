@@ -9,6 +9,7 @@ import {
 	LogoutIcon,
 } from '../icons/Icons';
 import ProfileSettingsModal from '../ProfileSettingsModal/ProfileSettingsModal';
+import { formatCurrency } from '../../utils/formatCurrency';
 import './Header.css';
 
 export default function Header() {
@@ -36,7 +37,7 @@ export default function Header() {
 					<div className="balance-display">
 						<BalanceIcon />
 						<span className="balance-amount">
-							${Number(balance ?? 0).toFixed(2)}
+							{formatCurrency(balance)}
 						</span>
 					</div>
 

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useMinesStore } from "../../store/minesStore";
+import { MinesGameStatus } from "../../types/mines";
+import { cn } from "../../utils/cn";
 
 interface MinesControlsProps {
   balance: number;
@@ -21,13 +23,18 @@ export default function MinesControls({
   const [isProcessing, setIsProcessing] = useState(false);
   const [activeBetButton, setActiveBetButton] = useState<string>("1/2");
 
-  const isIdle = status === "idle";
-  const isPlaying = status === "playing";
+  const isIdle = status === MinesGameStatus.Idle;
+  const isPlaying = status === MinesGameStatus.Playing;
+  const isControlsDisabled = !isIdle || isProcessing;
 
   const handleBetChange = (value: string) => {
     if (value === "" || /^\d*\.?\d{0,2}$/.test(value)) {
       setBetAmount(value);
     }
+  };
+
+  const handleBetInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleBetChange(e.target.value);
   };
 
   const handleHalfBet = () => {
@@ -79,6 +86,12 @@ export default function MinesControls({
     }
   };
 
+  const betButtons = [
+    { label: "½", activeKey: "1/2", onClick: handleHalfBet },
+    { label: "2×", activeKey: "2x", onClick: handleDoubleBet },
+    { label: "Max", activeKey: "max", onClick: handleMaxBet },
+  ];
+
   return (
     <div className="mines-controls">
       <div className="mines-controls__section">
@@ -88,37 +101,27 @@ export default function MinesControls({
             type="text"
             className="mines-controls__input"
             value={betAmount}
-            onChange={(e) => handleBetChange(e.target.value)}
-            disabled={!isIdle || isProcessing}
+            onChange={handleBetInputChange}
+            disabled={isControlsDisabled}
             placeholder="0.00"
           />
           <span className="mines-controls__currency">$</span>
         </div>
         <div className="mines-controls__bet-buttons">
-          <button
-            type="button"
-            className={`mines-controls__bet-btn${activeBetButton === "1/2" ? " active" : ""}`}
-            onClick={handleHalfBet}
-            disabled={!isIdle || isProcessing}
-          >
-            ½
-          </button>
-          <button
-            type="button"
-            className={`mines-controls__bet-btn${activeBetButton === "2x" ? " active" : ""}`}
-            onClick={handleDoubleBet}
-            disabled={!isIdle || isProcessing}
-          >
-            2×
-          </button>
-          <button
-            type="button"
-            className={`mines-controls__bet-btn${activeBetButton === "max" ? " active" : ""}`}
-            onClick={handleMaxBet}
-            disabled={!isIdle || isProcessing}
-          >
-            Max
-          </button>
+          {betButtons.map((button) => (
+            <button
+              key={button.activeKey}
+              type="button"
+              className={cn(
+                "mines-controls__bet-btn",
+                activeBetButton === button.activeKey && "active"
+              )}
+              onClick={button.onClick}
+              disabled={isControlsDisabled}
+            >
+              {button.label}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -129,11 +132,12 @@ export default function MinesControls({
             <button
               key={count}
               type="button"
-              className={`mines-controls__mines-btn ${
-                minesCount === count ? "active" : ""
-              }`}
+              className={cn(
+                "mines-controls__mines-btn",
+                minesCount === count && "active"
+              )}
               onClick={() => setMinesCount(count)}
-              disabled={!isIdle || isProcessing}
+              disabled={isControlsDisabled}
             >
               {count}
             </button>

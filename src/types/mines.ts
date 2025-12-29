@@ -1,4 +1,11 @@
-export type MinesGameStatus = "idle" | "playing" | "won" | "lost";
+export const MinesGameStatus = {
+  Idle: "idle",
+  Playing: "playing",
+  Won: "won",
+  Lost: "lost",
+} as const;
+
+export type MinesGameStatus = (typeof MinesGameStatus)[keyof typeof MinesGameStatus];
 
 export type TileState = "hidden" | "safe" | "mine" | "blocked";
 

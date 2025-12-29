@@ -147,10 +147,8 @@ export const usePlinkoStore = create<PlinkoStore>((set, get) => ({
 
     const ball = state.activeBalls[ballIndex];
 
-    // Use the actual landed slot index if provided, otherwise use the predetermined one
     const finalSlotIndex = actualSlotIndex !== undefined ? actualSlotIndex : ball.slotIndex;
 
-    // Calculate the correct multiplier based on where the ball actually landed
     let finalMultiplier = ball.multiplier;
     if (actualSlotIndex !== undefined) {
       const { getMultiplier } = await import("../utils/plinkoMultiplier");

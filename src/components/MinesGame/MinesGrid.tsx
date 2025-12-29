@@ -1,5 +1,5 @@
 import { useMinesStore } from "../../store/minesStore";
-import type { TileState } from "../../types/mines";
+import { MinesGameStatus, type TileState } from "../../types/mines";
 
 interface MinesGridProps {
   onTileClick: (index: number) => void;
@@ -27,7 +27,7 @@ export default function MinesGrid({ onTileClick }: MinesGridProps) {
   };
 
   const handleTileClick = (index: number) => {
-    if (status !== "playing" || isRevealing) {
+    if (status !== MinesGameStatus.Playing || isRevealing) {
       return;
     }
 
@@ -46,7 +46,7 @@ export default function MinesGrid({ onTileClick }: MinesGridProps) {
           key={index}
           className={getTileClass(state)}
           onClick={() => handleTileClick(index)}
-          disabled={state !== "hidden" || status !== "playing" || isRevealing}
+          disabled={state !== "hidden" || status !== MinesGameStatus.Playing || isRevealing}
           type="button"
         >
           <span className="mines-tile__icon">{getTileIcon(state)}</span>

@@ -22,7 +22,7 @@ export default function PlinkoBall({ ball }: PlinkoBallProps) {
   const animationFrameRef = useRef<number | undefined>(undefined);
   const physicsStateRef = useRef<PhysicsState>({
     x: 0,
-    y: 0,
+    y: -40, // Start above the pyramid
     vx: INITIAL_VELOCITY_X,
     vy: INITIAL_VELOCITY_Y,
     rotation: 0,
@@ -31,34 +31,35 @@ export default function PlinkoBall({ ball }: PlinkoBallProps) {
   const lastTimeRef = useRef<number>(0);
   const hasCompletedRef = useRef(false);
   const hasStartedRef = useRef(false);
-  const [position, setPosition] = useState({ x: 0, y: 0, rotation: 0 });
+  const [position, setPosition] = useState({ x: 0, y: 10, rotation: 0 });
 
   const pegsRef = useRef<Peg[]>([]);
   const slotsRef = useRef<{ x: number; index: number }[]>([]);
   const finalYRef = useRef(600);
   const scaleRef = useRef(1);
+  const offsetYRef = useRef(0);
 
   useEffect(() => {
     pegsRef.current = getPegPositions(linesCount);
     slotsRef.current = getSlotPositions(linesCount);
     if (pegsRef.current.length > 0) {
-      // Slots are positioned at lastPegY + 60
       const lastPegY = pegsRef.current[pegsRef.current.length - 1].y;
       finalYRef.current = lastPegY + 60;
 
-      // Get actual container dimensions from the DOM
       const container = ballRef.current?.parentElement;
       if (container) {
         const containerWidth = container.clientWidth;
         const containerHeight = container.clientHeight;
 
-        // Calculate scale matching SVG's preserveAspectRatio="xMidYMid meet"
         const viewBoxWidth = 600;
         const viewBoxHeight = (linesCount - 1) * 45 + 180;
 
         const scaleX = containerWidth / viewBoxWidth;
         const scaleY = containerHeight / viewBoxHeight;
         scaleRef.current = Math.min(scaleX, scaleY);
+
+        const scaledHeight = viewBoxHeight * scaleRef.current;
+        offsetYRef.current = (containerHeight - scaledHeight) / 2;
       }
     }
   }, [linesCount]);
@@ -75,19 +76,16 @@ export default function PlinkoBall({ ball }: PlinkoBallProps) {
       const animate = (currentTime: number) => {
         if (hasCompletedRef.current) return;
 
-        const deltaTime = Math.min((currentTime - lastTimeRef.current) / 16.67, 2); // Cap at 2x normal speed
+        const deltaTime = Math.min((currentTime - lastTimeRef.current) / 16.67, 2);
         lastTimeRef.current = currentTime;
 
         const physics = physicsStateRef.current;
 
-        // Update physics
         updatePhysics(physics, pegsRef.current, deltaTime);
 
-        // Check if ball has reached the bottom
         if (physics.y >= finalYRef.current) {
           if (!hasCompletedRef.current) {
             hasCompletedRef.current = true;
-            // Let the ball settle naturally into the nearest slot
             let nearestSlotIndex = 0;
             let minDistance = Math.abs(physics.x - slotsRef.current[0].x);
 
@@ -103,20 +101,18 @@ export default function PlinkoBall({ ball }: PlinkoBallProps) {
             if (nearestSlot) {
               setPosition({
                 x: nearestSlot.x * scaleRef.current,
-                y: (finalYRef.current + 50) * scaleRef.current,
+                y: (finalYRef.current + 50) * scaleRef.current + offsetYRef.current,
                 rotation: physics.rotation,
               });
             }
-            // Pass the actual landed slot index for accurate game result
             completeBall(ball.id, nearestSlotIndex);
           }
           return;
         }
 
-        // Update visual position with scaling applied
         setPosition({
           x: physics.x * scaleRef.current,
-          y: (physics.y + 50) * scaleRef.current, // Add 50 to account for viewBox y offset
+          y: (physics.y + 50) * scaleRef.current + offsetYRef.current,
           rotation: physics.rotation,
         });
 

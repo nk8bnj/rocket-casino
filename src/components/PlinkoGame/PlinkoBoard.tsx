@@ -17,28 +17,19 @@ export default function PlinkoBoard() {
 
   const viewBoxHeight = (linesCount - 1) * 45 + 180;
 
-  // Calculate border positions to run parallel to pyramid edges
   const PEG_SPACING_X = 35;
   const PEG_SPACING_Y = 45;
 
-  // The pyramid expands by 17.5 pixels horizontally for each 45 pixels vertically
-  // This is the slope of the pyramid edge
   const PYRAMID_SLOPE = 17.5 / 45;
 
-  // Border margin to clear pegs and balls
-  const BORDER_OFFSET = 20; // Distance perpendicular to the pyramid edge
+  const BORDER_OFFSET = 20;
 
-  // Calculate the perpendicular offset components
-  // For a line with slope m, perpendicular distance d translates to:
-  // dx = d / sqrt(1 + m²), dy = d * m / sqrt(1 + m²)
   const slopeFactor = Math.sqrt(1 + PYRAMID_SLOPE * PYRAMID_SLOPE);
   const borderOffsetX = BORDER_OFFSET * slopeFactor;
 
-  // Top row (row 0): outermost pegs at ±35
   const topY = -10;
   const topX = PEG_SPACING_X + borderOffsetX;
 
-  // Bottom row: outermost pegs at ±(linesCount + 1) * 17.5
   const bottomY = (linesCount - 1) * PEG_SPACING_Y + 10;
   const bottomX = (linesCount + 1) * 18.5 + borderOffsetX;
 
@@ -61,7 +52,6 @@ export default function PlinkoBoard() {
             </filter>
           </defs>
 
-          {/* Pyramid borders - left and right angled walls */}
           <line
             x1={-topX}
             y1={topY}
@@ -136,7 +126,6 @@ export default function PlinkoBoard() {
           ))}
         </div>
 
-        {/* Slots overlay - renders on top of balls */}
         <svg className="plinko-board__slots-overlay" viewBox={`-300 -50 600 ${viewBoxHeight}`} preserveAspectRatio="xMidYMid meet">
           <defs>
             <filter id="slotGlowOverlay">

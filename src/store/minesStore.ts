@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import type { MinesGameState } from "../types/mines";
+import { MinesGameStatus } from "../types/mines";
 import { calculateMinesMultiplier } from "../utils/minesMultiplier";
-import { startMinesGame, revealMineTile, cashOutMines } from "../services/minesApi";
+import { minesApi } from "../services/minesApi";
 
 interface MinesStore extends MinesGameState {
   startGame: (betAmount: number, minesCount: number, userId: string, updateBalance: (userId: string, amount: number) => Promise<void>) => Promise<void>;
@@ -13,7 +14,7 @@ interface MinesStore extends MinesGameState {
 
 const INITIAL_STATE: MinesGameState = {
   gameId: null,
-  status: "idle",
+  status: MinesGameStatus.Idle,
   betAmount: 0,
   minesCount: 3,
   revealedTiles: [],
@@ -31,14 +32,14 @@ export const useMinesStore = create<MinesStore>((set, get) => ({
     try {
       await updateBalance(userId, -betAmount);
 
-      const response = await startMinesGame({
+      const response = await minesApi.startGame({
         bet_amount: betAmount,
         mines_count: minesCount,
       });
 
       set({
         gameId: response.game_id,
-        status: "playing",
+        status: MinesGameStatus.Playing,
         betAmount,
         minesCount,
         revealedTiles: [],
@@ -57,7 +58,7 @@ export const useMinesStore = create<MinesStore>((set, get) => ({
   revealTile: async (index: number) => {
     const state = get();
 
-    if (state.status !== "playing" || state.isRevealing || !state.gameId) {
+    if (state.status !== MinesGameStatus.Playing || state.isRevealing || !state.gameId) {
       return;
     }
 
@@ -68,7 +69,7 @@ export const useMinesStore = create<MinesStore>((set, get) => ({
     set({ isRevealing: true });
 
     try {
-      const response = await revealMineTile({
+      const response = await minesApi.revealTile({
         game_id: state.gameId,
         tile_index: index,
       });
@@ -84,7 +85,7 @@ export const useMinesStore = create<MinesStore>((set, get) => ({
         }
 
         set({
-          status: "lost",
+          status: MinesGameStatus.Lost,
           tileStates: newTileStates,
           minePositions: response.mine_positions || [],
           isRevealing: false,
@@ -118,12 +119,12 @@ export const useMinesStore = create<MinesStore>((set, get) => ({
   cashOut: async (userId, updateBalance) => {
     const state = get();
 
-    if (state.status !== "playing" || !state.gameId) {
+    if (state.status !== MinesGameStatus.Playing || !state.gameId) {
       return;
     }
 
     try {
-      const response = await cashOutMines({
+      const response = await minesApi.cashOut({
         game_id: state.gameId,
       });
 
@@ -137,7 +138,7 @@ export const useMinesStore = create<MinesStore>((set, get) => ({
       await updateBalance(userId, response.payout);
 
       set({
-        status: "won",
+        status: MinesGameStatus.Won,
         tileStates: newTileStates,
         minePositions: response.mine_positions,
         currentMultiplier: response.final_multiplier,

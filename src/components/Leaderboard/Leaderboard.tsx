@@ -3,6 +3,7 @@ import { supabase } from '../../services/supabase';
 import { useAuthStore } from '../../store/authStore';
 import { useWalletStore } from '../../store/walletStore';
 import { LeaderboardIcon } from '../icons/Icons';
+import { formatCurrency } from '../../utils/formatCurrency';
 import './Leaderboard.css';
 
 interface LeaderboardEntry {
@@ -87,7 +88,7 @@ export default function Leaderboard() {
 							<span className="username">{entry.username || 'Anonymous'}</span>
 						</div>
 						<span className="balance">
-							${Number(entry.balance ?? 0).toFixed(2)}
+							{formatCurrency(entry.balance)}
 						</span>
 					</div>
 				))}
